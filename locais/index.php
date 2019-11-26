@@ -5,9 +5,9 @@ require_once '../models/local.php';
 
 $locais = Local::all();
 
-// $locais[2]->delete();
+$locais[count($locais)-1]->delete();
 
-$local = new Local('Local C', 133, 123);
+$local = new Local('Local C', 132, 123);
 $local->save();
 $local->show();
 
