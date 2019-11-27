@@ -2,9 +2,12 @@
 
 require_once __DIR__.'/../../database.php';
 require_once __DIR__.'/../../models/LocalPublico.php';
-include __DIR__.'/../../includes/header.php';
 
-$locais = LocalPublico::all();
+const PAGE_TITLE = 'Locais Públicos';
+const PAGE_SUBTITLE = 'Adicionar';
+const PAGE_BACK = '../locais';
+
+include __DIR__.'/../../includes/header.php';
 
 $latitude = isset($_POST['latitude']) ? validateInput($_POST['latitude']) : NULL;
 $longitude = isset($_POST['longitude']) ? validateInput($_POST['longitude']) : NULL;
@@ -12,19 +15,13 @@ $nome = isset($_POST['nome']) ? validateInput($_POST['nome']) : NULL;
 
 if($latitude && $longitude && $nome) {
     $local = new LocalPublico($nome, $latitude, $longitude);
+
     $error = $local->save();
-    if(!$error) {
-        $_SESSION['success'] = 'Local público adicionado com sucesso.';
-        header('Location: ./');
-        die();
-    }
+
+    if(!$error)
+        flashMessageAndRedirect('Local público adicionado com sucesso.', 'success');
 }
 ?>
-
-<a href="../locais">Voltar atrás</a>
-<h1>Locais Públicos</h1>
-<hr>
-<h3><small class="text-muted">Adicionar</small></h3>
 
 <form method="POST">
     <div class="form-group">

@@ -21,6 +21,13 @@ abstract class Model
         return array_map("{$classname}::instance", $db->findAllByField($classname::db_name, $field, $value));
     }
 
+    public static function findAllByFields($fields) {
+        global $db;
+
+        $classname = get_called_class();
+        return array_map("{$classname}::instance", $db->findAllByFields($classname::db_name, $fields));
+    }
+
     abstract public function save();
 
     abstract public function getKeys();

@@ -3,17 +3,14 @@
 require_once __DIR__.'/../../database.php';
 require_once __DIR__.'/../../models/LocalPublico.php';
 
-$locais = LocalPublico::all();
+const PAGE_TITLE = 'Locais Públicos';
+const PAGE_BACK = '../../';
 
 include __DIR__.'/../../includes/header.php';
+
+$locais = LocalPublico::all();
+
 ?>
-
-<a href="../../">Voltar atrás</a>
-<h1>Locais Públicos</h1>
-
-<?php if(isset($_SESSION['success'])): ?>
-    <div class="alert alert-success" role="alert"><?= $_SESSION['success'] ?></div>
-<?php  unset($_SESSION['success']); endif; ?>
 
 <div class="table-responsive">
     <table class="table table-striped table-hover">

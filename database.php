@@ -35,6 +35,14 @@ class Database
         return $query->fetchAll();
     }
 
+    public function findAllByFields($table, $fields) {
+        $fieldnames = implode(' AND ', array_map(function ($a) { return "$a = ?"; }, array_keys($fields)));
+        $sql = "SELECT * FROM $table WHERE $fieldnames";
+        $query = $this->connection->prepare($sql);
+        $query->execute(array_values($fields));
+        return $query->fetchAll();
+    }
+
     public function insert($table, $fields, $has_id = true) {
         $fieldnames = implode(',', array_keys($fields));
         $fieldvalues = implode(',', array_map(function ($a) { return '?'; }, $fields));

@@ -17,6 +17,11 @@ class LocalPublico extends Model
         return new self($r->nome, $r->latitude, $r->longitude, true);
     }
 
+    public static function find($latitude, $longitude) {
+        $result = self::findAllByFields(['latitude' => $latitude,'longitude' => $longitude]);
+        return isset($result[0]) ? $result[0] : NULL; // only first
+    }
+
     public function __construct($nome, $latitude, $longitude, $in_db = false) {
         $this->nome = $nome;
         $this->latitude = $latitude;
