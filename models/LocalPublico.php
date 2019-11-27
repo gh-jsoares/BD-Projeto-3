@@ -33,7 +33,6 @@ class LocalPublico extends Model
 
     public function save() {
         global $db;
-        global $db_name;
 
         $fields = getFields($this);
 
@@ -42,8 +41,10 @@ class LocalPublico extends Model
                 $db->insert($this::db_name, $fields, false);
             else
                 $db->update($this::db_name, $fields, $this->getKeys());
+
+            return NULL;
         } catch (PDOException $e) {
-            echo $e;
+            return substr($e->errorInfo[2], strpos($e->errorInfo[2], "DETAIL:") + 7);
         }
     }
 }

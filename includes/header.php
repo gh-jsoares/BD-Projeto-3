@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
     <head>
@@ -7,6 +11,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="<?= getAsset('css/bootstrap.min.css') ?>">
+        <link rel="stylesheet" href="<?= getAsset('css/fontawesome.min.css') ?>">
 
         <title>BD - Projeto 3</title>
     </head>

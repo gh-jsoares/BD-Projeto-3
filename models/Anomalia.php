@@ -39,7 +39,6 @@ class Anomalia extends Model
 
     public function save() {
         global $db;
-        global $db_name;
 
         $fields = getFields($this);
 
