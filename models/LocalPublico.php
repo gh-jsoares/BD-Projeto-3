@@ -1,10 +1,10 @@
 <?php
 
-require_once '../utils.php';
-require_once '../model.php';
+require_once __DIR__.'/../utils.php';
+require_once __DIR__.'/../model.php';
 
 
-class Local extends Model
+class LocalPublico extends Model
 {
     public $nome;
     public $latitude;
@@ -14,7 +14,7 @@ class Local extends Model
     const db_name = 'local_publico';
 
     protected static function instance($r) {
-        return new Local($r->nome, $r->latitude, $r->longitude, true);
+        return new self($r->nome, $r->latitude, $r->longitude, true);
     }
 
     public function __construct($nome, $latitude, $longitude, $in_db = false) {
