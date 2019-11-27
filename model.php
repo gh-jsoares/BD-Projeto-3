@@ -12,6 +12,11 @@ abstract class Model
         return array_map("{$classname}::instance", $db->all($classname::db_name));
     }
 
+    public static function find($id) {
+        $result = self::findAllByFields(['id' => $id]);
+        return isset($result[0]) ? $result[0] : NULL; // only first
+    }
+
     abstract protected static function instance($r);
 
     public static function findAllByField($field, $value) {

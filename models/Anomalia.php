@@ -6,7 +6,7 @@ require_once __DIR__.'/../model.php';
 class Anomalia extends Model
 {
     public $id;
-    public $zona; // localpublico??
+    public $zona;
     public $imagem;
     public $lingua;
     public $ts;
@@ -28,6 +28,7 @@ class Anomalia extends Model
         $this->ts = $ts;
         $this->descricao = $descricao;
         $this->tem_anomalia_redacao = $tem_anomalia_redacao;
+        
         $this->in_db = $in_db;
     }
 
@@ -41,14 +42,17 @@ class Anomalia extends Model
         global $db;
 
         $fields = getFields($this);
+        array_shift($fields); // remove id
 
         try {
             if(!$this->in_db)
                 $this->id = $db->insert($this::db_name, $fields);
             else
                 $db->update($this::db_name, $fields, $this->getKeys());
+        
+            return NULL;
         } catch (PDOException $e) {
-            echo $e;
+            return substr($e->errorInfo[2], strpos($e->errorInfo[2], "DETAIL:") + 7);
         }
     }
 }

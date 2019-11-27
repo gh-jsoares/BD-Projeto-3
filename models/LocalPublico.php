@@ -26,6 +26,7 @@ class LocalPublico extends Model
         $this->nome = $nome;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+        
         $this->in_db = $in_db;
     }
 

@@ -16,7 +16,7 @@ class Item extends Model
     protected static function instance($r) {
         return new self($r->descricao, $r->localizacao, $r->latitude, $r->longitude, $r->id, true);
     }
-
+    
     public function __construct($descricao, $localizacao, $latitude, $longitude, $id = NULL, $in_db = false) {
         $this->id = $id;
         $this->descricao = $descricao;
@@ -25,6 +25,12 @@ class Item extends Model
         $this->longitude = $longitude;
 
         $this->in_db = $in_db;
+    }
+
+    public function getKeys() {
+        return [
+            'id' => $this->id
+        ];
     }
 
     public function save() {
@@ -38,14 +44,10 @@ class Item extends Model
                 $this->id = $db->insert($this::db_name, $fields);
             else
                 $db->update($this::db_name, $fields, $this->getKeys());
-        } catch (PDOException $e) {
-            echo $e;
-        }
-    }
 
-    public function getKeys() {
-        return [
-            'id' => $this->id
-        ];
+            return NULL;
+        } catch (PDOException $e) {
+            return substr($e->errorInfo[2], strpos($e->errorInfo[2], "DETAIL:") + 7);
+        }
     }
 }
