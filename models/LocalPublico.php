@@ -17,7 +17,9 @@ class LocalPublico extends Model
         return new self($r->nome, $r->latitude, $r->longitude, true);
     }
 
-    public static function find($latitude, $longitude) {
+    public static function find($latitude, $longitude = NULL) {
+        if($longitude == NULL)
+            flashMessageAndRedirect('An error occurred', 'danger');
         $result = self::findAllByFields(['latitude' => $latitude,'longitude' => $longitude]);
         return isset($result[0]) ? $result[0] : NULL; // only first
     }
