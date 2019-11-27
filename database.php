@@ -1,11 +1,13 @@
 <?php
 
+include_once('env.php');
+
 class Database
 {
-    private $host = 'localhost';
-    private $user = 'postgres';
-    private $password = 'password';
-    private $dbname = 'bd_proj_3';
+    private $host = HOST;
+    private $user = USER;
+    private $password = PASSWORD;
+    private $dbname = DBNAME;
     public $connection;
 
     public function __construct() {
