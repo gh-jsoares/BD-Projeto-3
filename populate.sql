@@ -61,16 +61,7 @@ INSERT INTO anomalia VALUES (DEFAULT, '(17, 18, 17, 18)', 'rIMG', 'rLNG', '2019-
 INSERT INTO anomalia VALUES (DEFAULT, '(18, 19, 18, 19)', 'sIMG', 'sLNG', '2019-11-29 04:20:00', 's', 'false');
 INSERT INTO anomalia VALUES (DEFAULT, '(19, 20, 19, 20)', 'tIMG', 'tLNG', '2019-11-29 07:07:07', 't', 'false');
 
-INSERT INTO anomalia_traducao VALUES (1, '(0, 1, 0, 1)', 'bLNG');
-INSERT INTO anomalia_traducao VALUES (2, '(1, 2, 1, 2)', 'cLNG');
-INSERT INTO anomalia_traducao VALUES (3, '(2, 3, 2, 3)', 'dLNG');
-INSERT INTO anomalia_traducao VALUES (4, '(3, 4, 3, 4)', 'eLNG');
-INSERT INTO anomalia_traducao VALUES (5, '(4, 5, 4, 5)', 'fLNG');
-INSERT INTO anomalia_traducao VALUES (6, '(5, 6, 5, 6)', 'gLNG');
-INSERT INTO anomalia_traducao VALUES (7, '(6, 7, 6, 7)', 'hLNG');
-INSERT INTO anomalia_traducao VALUES (8, '(7, 8, 7, 8)', 'iLNG');
-INSERT INTO anomalia_traducao VALUES (9, '(8, 9, 8, 9)', 'jLNG');
-INSERT INTO anomalia_traducao VALUES (10, '(9, 10, 9, 10)', 'kLNG');
+
 INSERT INTO anomalia_traducao VALUES (11, '(10, 11, 10, 11)', 'lLNG');
 INSERT INTO anomalia_traducao VALUES (12, '(11, 12, 11, 12)', 'mLNG');
 INSERT INTO anomalia_traducao VALUES (13, '(12, 13, 12, 13)', 'nLNG');
