@@ -2,7 +2,7 @@ nomes = ["Seymour", "Vern", "Catherine", "Antione", "Rusty", "Windy", "Garth", "
 
 passwords = ["GmnABXxC", "wU3ATdN3", "dtbEjEeS", "tHSdErjj", "ctUuYx2s", "YExgf57s", "VBg4YKLe", "PbDpev92", "7Q2ua3Ea", "FHXNxApx", "JdGt6LP4", "fwfzQESq", "3T7Mm8Em", "kpqDKZeE", "GcH2wfw7", "WR7QvDKr", "5tf4RcgL", "ff2bxAG5", "4rA3FuaL", "pA4JZwYA"]
 
-locais_publicos = ["45°28'N", "9°11'E", "Milan", "64°08'N", "21°56'W", "Reykjavik", "64°45'N", "20°57'E", "Skelleftea", "62°27'N", "114°24'W", "Yellowknife", "54°30'N", "18°33'E", "Gdynia", "69°54'N", "27°01'E", "Utsjoki", "68°58'N", "33°05'E", "Murmansk", "50°51'N", "4°21'E", "Brussels", "25°23'N", "68°22'E", "Hyderabad", "18°55'S", "48°17'W", "Uberlandia", "31°46'S", "52°21'W", "Pelotas", "7°45'N", "8°49'W", "Nzerekore", "28°45'S", "24°46'E", "Kimberley", "16°30'S", "68°09'W", "La Paz", "27°28'N", "89°39'E", "Thimphu", "73°30'N", "80°31'E", "Dikson", "36°42'N", "137°13'E", "Toyama", "26°49'S", "65°13'W", "San Miguel de Tucuman", "25°04'N", "102°41'E", "Kunming", "25°37'N", "85°09'E", "Patna"]
+locais_publicos = ["45.28", "9.11", "Milan", "64.08", "21.56", "Reykjavik", "64.45", "20.57", "Skelleftea", "62.27", "114.24", "Yellowknife", "54.30", "18.33", "Gdynia", "69.54", "27.01", "Utsjoki", "68.58", "33.05", "Murmansk", "50.51", "4.21", "Brussels", "25.23", "68.22", "Hyderabad", "18.55", "48.17", "Uberlandia", "31.46", "52.21", "Pelotas", "7.45", "8.49", "Nzerekore", "28.45", "24.46", "Kimberley", "16.30", "68.09", "La Paz", "27.28", "89.39", "Thimphu", "73.30", "80.31", "Dikson", "36.42", "137.13", "Toyama", "26.49", "65.13", "San Miguel de Tucuman", "25.04", "102.41", "Kunming", "25.37", "85.09", "Patna"]
 
 descricoes = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t"]
 
@@ -28,7 +28,7 @@ f.write("\n")
 i = 0
 j = 0
 while i < len(locais_publicos):
-    f.write("INSERT INTO item VALUES (NULL, \"" + descricoes[j] + "\", \"" + locais_publicos[i + 2] + "\", \"" + locais_publicos[i] + "\", \"" + locais_publicos[i + 1] + "\")\n")
+    f.write("INSERT INTO item VALUES (DEFAULT, \"" + descricoes[j] + "\", \"" + locais_publicos[i + 2] + "\", \"" + locais_publicos[i] + "\", \"" + locais_publicos[i + 1] + "\")\n")
     j += 1
     i += 3
 f.write("\n")
@@ -36,20 +36,25 @@ f.write("\n")
 i = 0
 j = 0
 while i < len(locais_publicos):
-    f.write("INSERT INTO anomalia VALUES (NULL, \"" + locais_publicos[i + 2] + "\", \"" + imagens[j] + "\", \"" + linguas[j] + "\", \"" + ts[j] + "\", \"" + descricoes[j] + "\", \"" + tem_anomalia_redacao[j] + "\")\n")
+    f.write("INSERT INTO anomalia VALUES (DEFAULT, \"" + locais_publicos[i + 2] + "\", \"" + imagens[j] + "\", \"" + linguas[j] + "\", \"" + ts[j] + "\", \"" + descricoes[j] + "\", \"" + tem_anomalia_redacao[j] + "\")\n")
     j += 1
     i += 3
 f.write("\n")
 
 i = 0
+j = 0
 while i < 20:
-    f.write("INSERT INTO anomalia_traducao VALUES (NULL, NULL, NULL)\n")
+    if (i < 10):
+        f.write("INSERT INTO anomalia_traducao VALUES (" + str(i + 1) + ", NULL, NULL)\n")
+    else:
+        f.write("INSERT INTO anomalia_traducao VALUES (" + str(i + 1) + ", " + "\"" + locais_publicos[j + 2] + "\", \"" + linguas[i - 10] + "\")\n")
     i += 1
+    j += 3
 f.write("\n")
 
 i = 0
 while i < 20:
-    f.write("INSERT INTO duplicado VALUES (NULL, NULL)\n")
+    f.write("INSERT INTO duplicado VALUES (" + str(i) + ", " + str(i + 1) + ")\n")
     i += 1
 f.write("\n")
 
