@@ -92,7 +92,7 @@ f.write('\n')
 
 i = 0
 while i < 10:
-    f.write('INSERT INTO correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 2) + ', ' + str(i + 1) + ');\n')
+    f.write('INSERT INTO correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 1) + ', ' + str(i + 2) + ');\n')
     i += 1
 f.write('\n')
 
