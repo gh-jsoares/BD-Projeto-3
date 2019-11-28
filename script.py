@@ -36,20 +36,22 @@ f.write('\n')
 i = 0
 j = 0
 while i < len(locais_publicos):
-    f.write('INSERT INTO anomalia VALUES (DEFAULT, \'' + locais_publicos[i + 2] + '\', \'' + imagens[j] + '\', \'' + linguas[j] + '\', \'' + ts[j] + '\', \'' + descricoes[j] + '\', \'' + tem_anomalia_redacao[j] + '\');\n')
+    f.write('INSERT INTO anomalia VALUES (DEFAULT, \'(' + str(j) + ', ' + str(j + 1) + ', ' + str(j) + ', ' + str(j + 1) + ')\', \'' + imagens[j] + '\', \'' + linguas[j] + '\', \'' + ts[j] + '\', \'' + descricoes[j] + '\', \'' + tem_anomalia_redacao[j] + '\');\n')
     j += 1
     i += 3
 f.write('\n')
 
 i = 0
-j = 0
+j = 3
 while i < 20:
-    if (i < 10):
-        f.write('INSERT INTO anomalia_traducao VALUES (' + str(i + 1) + ', NULL, NULL);\n')
+    if i != 19:
+        f.write('INSERT INTO anomalia_traducao VALUES (' + str(i + 1) + ', \'(' + str(i) + ', ' + str(i + 1) + ', ' + str(i) + ', ' + str(i + 1) + ')\', \'' + linguas[i + 1] + '\');\n')
     else:
-        f.write('INSERT INTO anomalia_traducao VALUES (' + str(i + 1) + ', ' + '\'' + locais_publicos[j + 2] + '\', \'' + linguas[i - 10] + '\');\n')
+        f.write('INSERT INTO anomalia_traducao VALUES (' + str(i + 1) + ', \'(' + str(i) + ', ' + str(i + 1) + ', ' + str(i) + ', ' + str(i + 1) + ')\', \'' + linguas[0] + '\');\n')
     i += 1
     j += 3
+    if i == 19:
+        j = 0
 f.write('\n')
 
 i = 1
