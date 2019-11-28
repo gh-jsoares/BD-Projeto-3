@@ -23,7 +23,7 @@ $locais = LocalPublico::all();
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($locais as $local): ?>
+            <?php foreach ($locais as $local): $local->save(); ?>
                 <tr>
                     <td><?= $local->latitude ?></td>
                     <td><?= $local->longitude ?></td>

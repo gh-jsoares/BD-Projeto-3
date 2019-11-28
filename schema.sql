@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS local_publico CASCADE;
+DROP TABLE IF EXISTS item CASCADE;
+DROP TABLE IF EXISTS anomalia CASCADE;
+DROP TABLE IF EXISTS anomalia_traducao CASCADE;
+DROP TABLE IF EXISTS duplicado CASCADE;
+DROP TABLE IF EXISTS utilizador CASCADE;
+DROP TABLE IF EXISTS utilizador_qualificado CASCADE;
+DROP TABLE IF EXISTS utilizador_regular CASCADE;
+DROP TABLE IF EXISTS incidencia CASCADE;
+DROP TABLE IF EXISTS proposta_de_correcao CASCADE;
+DROP TABLE IF EXISTS correcao CASCADE;
+
 CREATE TABLE local_publico (
 	latitude DECIMAL (9, 6) NOT NULL,
 	longitude DECIMAL(9, 6) NOT NULL,
@@ -9,8 +21,8 @@ CREATE TABLE item (
 	id SERIAL PRIMARY KEY,
 	descricao VARCHAR(255) NOT NULL,
 	localizacao VARCHAR(255) NOT NULL,
-	latitude DECIMAL (9, 6),
-	longitude DECIMAL(9, 6),
+	latitude DECIMAL (9, 6) NOT NULL,
+	longitude DECIMAL(9, 6) NOT NULL,
 	FOREIGN KEY (latitude, longitude) REFERENCES local_publico(latitude, longitude)
 );
 
@@ -21,20 +33,21 @@ CREATE TABLE anomalia (
 	lingua VARCHAR(255) NOT NULL,
 	ts TIMESTAMP NOT NULL,
 	descricao VARCHAR(255) NOT NULL,
-	tem_anomalia_redacao BOOLEAN
+	tem_anomalia_redacao BOOLEAN NOT NULL
 );
 
 CREATE TABLE anomalia_traducao ( /* Não sei ao certo como aplicar aqui as restrições */
 	id INT NOT NULL PRIMARY KEY,
-	zona2 VARCHAR(255),
-	lingua2 VARCHAR(255),
+	zona2 VARCHAR(255) NOT NULL,
+	lingua2 VARCHAR(255) NOT NULL,
 	FOREIGN KEY (id) REFERENCES anomalia(id)
 );
 
 CREATE TABLE duplicado ( /* Novamente, não sei bem aplicar as restrições */
 	item1 INT NOT NULL REFERENCES item(id),
 	item2 INT NOT NULL REFERENCES item(id),
-	constraint pk_duplicado PRIMARY KEY (item1, item2)
+	CONSTRAINT pk_duplicado PRIMARY KEY (item1, item2),
+	CHECK item1 < item2
 );
 
 CREATE TABLE utilizador ( /* Same as above */
@@ -48,13 +61,13 @@ CREATE TABLE utilizador ( /* Same as above */
 /* DINIS */
 
 CREATE TABLE utilizador_qualificado (
-	email VARCHAR(255) NOT NULL PRIMARY Key,
+	email VARCHAR(255) NOT NULL PRIMARY KEY,
 	FOREIGN KEY (email) REFERENCES utilizador(email)
 	/* (RI-5) email não pode figurar em utilizador_regular */
 );
 
 CREATE TABLE utilizador_regular (
-	email VARCHAR(255) NOT NULL PRIMARY Key,
+	email VARCHAR(255) NOT NULL PRIMARY KEY,
 	FOREIGN KEY (email) REFERENCES utilizador(email)
 	/* (RI-5) email não pode figurar em utilizador_qualificado */
 );

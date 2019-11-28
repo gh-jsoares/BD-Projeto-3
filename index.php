@@ -1,9 +1,5 @@
 <?php
 
-require_once 'utils.php';
-require_once 'database.php';
-require_once 'models/Item.php';
-
 const PAGE_TITLE = 'Projeto de Bases de Dados';
 
 include 'includes/header.php';

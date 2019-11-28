@@ -25,6 +25,7 @@ class UtilizadorQualificado extends Model
         
         $this->in_db = $in_db;
     }
+    
     public function getKeys() {
         return [
             'email' => $this->email

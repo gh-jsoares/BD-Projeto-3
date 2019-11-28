@@ -10,7 +10,6 @@ class LocalPublico extends Model
     public $latitude;
     public $longitude;
 
-    protected $in_db = false;
     const db_name = 'local_publico';
 
     protected static function instance($r) {
@@ -20,7 +19,7 @@ class LocalPublico extends Model
     public static function find($latitude, $longitude = NULL) {
         if($longitude == NULL)
             flashMessageAndRedirect('An error occurred', 'danger');
-        $result = self::findAllByFields(['latitude' => $latitude,'longitude' => $longitude]);
+        $result = self::findAllByFields(['latitude' => $latitude, 'longitude' => $longitude]);
         return isset($result[0]) ? $result[0] : NULL; // only first
     }
 

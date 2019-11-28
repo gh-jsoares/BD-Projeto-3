@@ -12,7 +12,6 @@ class Database
 
     public function __construct() {
         $dsn = "pgsql:host={$this->host};dbname={$this->dbname}";
-        //$dsn = "mysql:host={$this->host};dbname={$this->dbname}";
 
         try {
             $this->connection = new PDO($dsn, $this->user, $this->password);
