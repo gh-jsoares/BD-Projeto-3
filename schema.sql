@@ -47,7 +47,7 @@ CREATE TABLE duplicado ( /* Novamente, não sei bem aplicar as restrições */
 	item1 INT NOT NULL REFERENCES item(id),
 	item2 INT NOT NULL REFERENCES item(id),
 	CONSTRAINT pk_duplicado PRIMARY KEY (item1, item2),
-	CHECK item1 < item2
+	CHECK (item1 < item2)
 );
 
 CREATE TABLE utilizador ( /* Same as above */
@@ -87,7 +87,7 @@ CREATE TABLE proposta_de_correcao (
 	data_hora TIMESTAMP NOT NULL,
 	texto TEXT,
 	FOREIGN KEY (email) REFERENCES utilizador(email),
-	constraint pk_proposta_de_correcao PRIMARY KEY (email, nro)
+	CONSTRAINT pk_proposta_de_correcao PRIMARY KEY (email, nro)
 	/* (RI-7) email e nro têm de figurar em correção S*/
 );
 
@@ -97,5 +97,5 @@ CREATE TABLE correcao (
 	anomalia_id INT NOT NULL,
 	FOREIGN KEY (nro, email) REFERENCES proposta_de_correcao(nro, email),
 	FOREIGN KEY (anomalia_id) REFERENCES anomalia(id),
-	constraint pk_correcao PRIMARY KEY (email, nro, anomalia_id)
+	CONSTRAINT pk_correcao PRIMARY KEY (email, nro, anomalia_id)
 );
