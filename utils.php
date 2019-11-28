@@ -15,6 +15,6 @@ function validateInput($input) {
 function flashMessageAndRedirect($message, $type, $redirect = './') {
     $_SESSION['message-content'] = $message;
     $_SESSION['message-type'] = $type;
-    header('Location: '.$redirect);
+    header('Location: '.'/'.basename(__DIR__).'/pages/'.basename(getcwd()).'/'.$redirect);
     die();
 }
