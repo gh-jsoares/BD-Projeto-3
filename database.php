@@ -21,7 +21,7 @@ class Database
         } catch (PDOException $e) {
             echo $e->getMessage();
             error_log($e->getMessage());
-            exit('Something weird happened'); //something a user can understand
+            exit('Something weird happened');
         }
     }
 
@@ -68,6 +68,37 @@ class Database
         $query = $this->connection->prepare($sql);
         $query->execute(array_values($fields));
     }
+
+    public function beginTransaction() {
+        try {
+            $this->connection->beginTransaction();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            error_log($e->getMessage());
+            exit('Something weird happened');
+        }
+    }
+
+    public function commitTransaction() {
+        try {
+            $this->connection->commit();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            error_log($e->getMessage());
+            exit('Something weird happened');
+        }
+    }
+
+    public function rollbackTransaction() {
+        try {
+            $this->connection->commit();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            error_log($e->getMessage());
+            exit('Something weird happened');
+        }
+    }
+
 }
 
 $db = new Database();

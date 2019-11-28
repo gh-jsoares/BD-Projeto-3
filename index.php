@@ -11,8 +11,9 @@ include 'includes/header.php';
     <li><a href="pages/anomalias">Ver anomalias</a></li>
     <li><a href="pages/utilizadores">Ver utilizadores</a></li>
 
-    <li><a href="pages/incidencias">Ver incidencias</a></li>
+    <li><a href="pages/incidencias">Ver incidências</a></li>
     <li><a href="pages/duplicados">Ver duplicados</a></li>
+    <li><a href="pages/correcoes">Ver correções</a></li>
 </ul>
 
 <?php include 'includes/footer.php'; ?>

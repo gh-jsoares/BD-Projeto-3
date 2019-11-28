@@ -83,8 +83,8 @@ CREATE TABLE incidencia (
 
 CREATE TABLE proposta_de_correcao (
 	email VARCHAR(255) NOT NULL,
-	nro INT NOT NULL,
-	data_hora TIMESTAMP NOT NULL,
+	nro SERIAL,
+	data_hora TIMESTAMP NOT NULL DEFAULT NOW(),
 	texto TEXT,
 	FOREIGN KEY (email) REFERENCES utilizador(email),
 	CONSTRAINT pk_proposta_de_correcao PRIMARY KEY (email, nro)
@@ -95,7 +95,7 @@ CREATE TABLE correcao (
 	email VARCHAR(255) NOT NULL,
 	nro INT NOT NULL,
 	anomalia_id INT NOT NULL,
-	FOREIGN KEY (nro, email) REFERENCES proposta_de_correcao(nro, email),
-	FOREIGN KEY (anomalia_id) REFERENCES anomalia(id),
+	FOREIGN KEY (email, nro) REFERENCES proposta_de_correcao(email, nro) ON DELETE CASCADE,
+	FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id),
 	CONSTRAINT pk_correcao PRIMARY KEY (email, nro, anomalia_id)
 );

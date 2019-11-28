@@ -2,6 +2,7 @@
 
     require_once __DIR__.'/../utils.php';
     session_start();
+    setlocale(LC_TIME, "pt_PT");
 ?>
 
 <!DOCTYPE html>

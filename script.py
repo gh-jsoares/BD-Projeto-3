@@ -86,13 +86,13 @@ f.write('\n')
 
 i = 0
 while i < 10:
-    f.write('INSERT INTO proposta_de_correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 1) + ', \'' + ts[i + 10] + '\', \'' + correcoes[i] + '\');\n')
+    f.write('INSERT INTO proposta_de_correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', DEFAULT, \'' + ts[i + 10] + '\', \'' + correcoes[i] + '\');\n')
     i += 1
 f.write('\n')
 
 i = 0
 while i < 10:
-    f.write('INSERT INTO correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 1) + ', ' + str(i + 2) + ');\n')
+    f.write('INSERT INTO correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 1) + ', ' + str(i * 2 + 2) + ');\n')
     i += 1
 f.write('\n')
 
