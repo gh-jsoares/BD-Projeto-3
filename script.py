@@ -52,7 +52,7 @@ while i < 20:
     j += 3
 f.write("\n")
 
-i = 0
+i = 1
 while i < 20:
     f.write("INSERT INTO duplicado VALUES (" + str(i) + ", " + str(i + 1) + ")\n")
     i += 1
