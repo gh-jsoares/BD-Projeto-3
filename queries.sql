@@ -13,6 +13,16 @@ HAVING COUNT(*) >= ALL(
 	GROUP BY nome
 );
 
+-- Querie 1 v2
+SELECT nome
+FROM local_publico NATURAL JOIN item
+GROUP BY nome
+HAVING COUNT(*) >= ALL(
+	SELECT COUNT(*)
+	FROM local_publico NATURAL JOIN item
+	GROUP BY nome
+);
+
 -- Querie 2
 WITH TMP AS (
 	SELECT i.email, i.anomalia_id, a.id, a.tem_anomalia_redacao, a.ts
