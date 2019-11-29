@@ -33,7 +33,6 @@ $itens = Item::all();
                     <td><?= $item->latitude ?></td>
                     <td><?= $item->longitude ?></td>
                     <td>
-                        <a class="btn btn-sm btn-warning text-white" href="edit.php?id=<?= $item->id ?>"><i class="fa fa-pen"></i></a>
                         <a class="btn btn-sm btn-danger" href="delete.php?id=<?= $item->id ?>"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>

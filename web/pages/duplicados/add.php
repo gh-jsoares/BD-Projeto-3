@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/../../database.php';
 require_once __DIR__.'/../../models/Duplicado.php';
+require_once __DIR__.'/../../models/Item.php';
 
 const PAGE_TITLE = 'Duplicados';
 const PAGE_SUBTITLE = 'Adicionar';
@@ -22,17 +23,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             flashMessageAndRedirect('Duplicado adicionado com sucesso.', 'success');
     }
 }
+
+$items = Item::all();
 ?>
 
 <form method="POST">
+
     <div class="form-group">
         <label for="item1Input">Item 1</label>
-        <input name="item1" value="<?= $item1 ?>" required type="text" class="form-control" id="item1Input">
+        <select name="item1" class="custom-select">
+            <option value="NULL" disabled selected>Selecionar Item 1</option>
+            <?php foreach ($items as $item): ?>
+                <option <?= $item->id == $item1 ? 'selected' : '' ?> value="<?= $item->id ?>"><?= $item->id ?></option>
+            <?php endforeach; ?>
+        </select>
     </div>
 
     <div class="form-group">
         <label for="item2Input">Item 2</label>
-        <input name="item2" value="<?= $item2 ?>" required type="text" class="form-control" id="item2Input">
+        <select name="item2" class="custom-select">
+            <option value="NULL" disabled selected>Selecionar Item 2</option>
+            <?php foreach ($items as $item): ?>
+                <option <?= $item->id == $item2 ? 'selected' : '' ?> value="<?= $item->id ?>"><?= $item->id ?></option>
+            <?php endforeach; ?>
+        </select>
     </div>
 
     <?php if(isset($error)): ?>

@@ -47,11 +47,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input name="email" value="<?= $email?>" type="email" class="form-control" id="emailInput">
     </div>
 
-    <select name="anomalias[]" class="form-group custom-select" multiple size="3">
-        <?php foreach (Incidencia::all() as $incidencia): ?>
-            <option value="<?= $incidencia->anomalia_id ?>" <?= in_array($incidencia->anomalia_id, $anomalias) ? 'selected' : '' ?>><?= $incidencia->anomalia_id ?></option>
-        <?php endforeach; ?>
-    </select>
+    <div class="form-group">
+        <label for="anomaliasInput">Anomalias</label>
+        <select name="anomalias[]" class="form-group custom-select" id="anomaliasInput" multiple size="3">
+            <?php foreach (Incidencia::all() as $incidencia): ?>
+                <option value="<?= $incidencia->anomalia_id ?>" <?= in_array($incidencia->anomalia_id, $anomalias) ? 'selected' : '' ?>><?= $incidencia->anomalia_id ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
     <div class="form-group">
         <label for="data_horaInput">Data - Hora</label>

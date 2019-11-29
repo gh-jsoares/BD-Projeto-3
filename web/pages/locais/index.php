@@ -29,7 +29,6 @@ $locais = LocalPublico::all();
                     <td><?= $local->longitude ?></td>
                     <td><?= $local->nome ?></td>
                     <td>
-                        <a class="btn btn-sm btn-warning text-white" href="edit.php?latitude=<?= $local->latitude ?>&longitude=<?= $local->longitude ?>"><i class="fa fa-pen"></i></a>
                         <a class="btn btn-sm btn-danger" href="delete.php?latitude=<?= $local->latitude ?>&longitude=<?= $local->longitude ?>"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>

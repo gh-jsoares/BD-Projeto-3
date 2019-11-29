@@ -37,7 +37,6 @@ $anomalias = Anomalia::all();
                     <td><?= $anomalia->descricao ?></td>
                     <td><i class="fa fa-<?= $anomalia->tem_anomalia_redacao ? 'check' : 'times'?>"></i></td>
                     <td>
-                        <a class="btn btn-sm btn-warning text-white" href="edit.php?id=<?= $anomalia->id ?>"><i class="fa fa-pen"></i></a>
                         <a class="btn btn-sm btn-danger" href="delete.php?id=<?= $anomalia->id ?>"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
