@@ -7,7 +7,7 @@ require_once __DIR__.'/../../models/Correcao.php';
 
 const PAGE_TITLE = 'Propostas de Correção';
 const PAGE_SUBTITLE = 'Adicionar';
-const PAGE_BACK = '../locais';
+const PAGE_BACK = '../correcoes';
 
 include __DIR__.'/../../includes/header.php';
 
