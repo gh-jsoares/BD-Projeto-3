@@ -3,7 +3,6 @@
 require_once __DIR__.'/../../database.php';
 require_once __DIR__.'/../../models/PropostaDeCorrecao.php';
 require_once __DIR__.'/../../models/Incidencia.php';
-require_once __DIR__.'/../../models/Correcao.php';
 
 const PAGE_TITLE = 'Propostas de Correção';
 const PAGE_SUBTITLE = 'Adicionar';
@@ -12,21 +11,28 @@ const PAGE_BACK = '../locais';
 include __DIR__.'/../../includes/header.php';
 
 $email = isset($_POST['email']) ? validateInput($_POST['email']) : NULL;
+$nro = isset($_POST['nro']) ? validateInput($_POST['nro']) : NULL;
 $anomalias = isset($_POST['anomalias']) ? array_map('validateInput', $_POST['anomalias']) : [];
 $data_hora = isset($_POST['data_hora']) ? validateInput($_POST['data_hora']) : (new DateTime('now', new DateTimeZone('Europe/Lisbon')))->format('Y-m-d\Th:i');
 $texto = isset($_POST['texto']) ? validateInput($_POST['texto']) : NULL;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if($email && $anomalias && $data_hora && $texto) {
+    if($email && $anomalias && $data_hora && $texto && $nro) {
         $db->beginTransaction();
         try {
-            $proposta = new PropostaDeCorrecao($email, $data_hora, $texto);
+            $proposta = PropostaDeCorrecao::find($email, $nro);
             $error = $proposta->save();
 
-            foreach ($anomalias as $anomalia) {
-                $correcao = new Correcao($email, $proposta->nro, intval($anomalia));
+            foreach ($proposta->correcoes() as $correcao) {
+                if(!in_array($correcao->anomalia_id, $anomalias)) {
+                    $correcao->delete();
+                }
                 $error = $correcao->save();
             }
+
+            $anomalias = array_diff(array_map('intval', $anomalias), $proposta->correcoes())
+
+            $correcao = new Correcao($email, $proposta->nro, intval($anomalia));
 
             $db->commitTransaction();
         } catch(PDOException $e) {

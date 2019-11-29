@@ -23,7 +23,7 @@ CREATE TABLE item (
 	localizacao VARCHAR(255) NOT NULL,
 	latitude DECIMAL (9, 6) NOT NULL,
 	longitude DECIMAL(9, 6) NOT NULL,
-	FOREIGN KEY (latitude, longitude) REFERENCES local_publico(latitude, longitude)
+	FOREIGN KEY (latitude, longitude) REFERENCES local_publico(latitude, longitude) ON DELETE CASCADE
 );
 
 CREATE TABLE anomalia (
@@ -40,12 +40,12 @@ CREATE TABLE anomalia_traducao ( /* Não sei ao certo como aplicar aqui as restr
 	id INT NOT NULL PRIMARY KEY,
 	zona2 VARCHAR(255) NOT NULL,
 	lingua2 VARCHAR(255) NOT NULL,
-	FOREIGN KEY (id) REFERENCES anomalia(id)
+	FOREIGN KEY (id) REFERENCES anomalia(id) ON DELETE CASCADE
 );
 
 CREATE TABLE duplicado ( /* Novamente, não sei bem aplicar as restrições */
-	item1 INT NOT NULL REFERENCES item(id),
-	item2 INT NOT NULL REFERENCES item(id),
+	item1 INT NOT NULL REFERENCES item(id) ON DELETE CASCADE,
+	item2 INT NOT NULL REFERENCES item(id) ON DELETE CASCADE,
 	CONSTRAINT pk_duplicado PRIMARY KEY (item1, item2),
 	CHECK (item1 < item2)
 );
@@ -62,13 +62,13 @@ CREATE TABLE utilizador ( /* Same as above */
 
 CREATE TABLE utilizador_qualificado (
 	email VARCHAR(255) NOT NULL PRIMARY KEY,
-	FOREIGN KEY (email) REFERENCES utilizador(email)
+	FOREIGN KEY (email) REFERENCES utilizador(email) ON DELETE CASCADE
 	/* (RI-5) email não pode figurar em utilizador_regular */
 );
 
 CREATE TABLE utilizador_regular (
 	email VARCHAR(255) NOT NULL PRIMARY KEY,
-	FOREIGN KEY (email) REFERENCES utilizador(email)
+	FOREIGN KEY (email) REFERENCES utilizador(email) ON DELETE CASCADE
 	/* (RI-5) email não pode figurar em utilizador_qualificado */
 );
 
@@ -76,9 +76,9 @@ CREATE TABLE incidencia (
 	anomalia_id INT NOT NULL PRIMARY KEY,
 	item_id INT NOT NULL,
 	email VARCHAR(255) NOT NULL,
-	FOREIGN KEY (anomalia_id) REFERENCES anomalia(id),
-	FOREIGN KEY (item_id) REFERENCES item(id),
-	FOREIGN KEY (email) REFERENCES utilizador(email)
+	FOREIGN KEY (anomalia_id) REFERENCES anomalia(id) ON DELETE CASCADE,
+	FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE CASCADE,
+	FOREIGN KEY (email) REFERENCES utilizador(email) ON DELETE CASCADE
 );
 
 CREATE TABLE proposta_de_correcao (
@@ -86,7 +86,7 @@ CREATE TABLE proposta_de_correcao (
 	nro SERIAL,
 	data_hora TIMESTAMP NOT NULL DEFAULT NOW(),
 	texto TEXT,
-	FOREIGN KEY (email) REFERENCES utilizador_qualificado(email),
+	FOREIGN KEY (email) REFERENCES utilizador_qualificado(email) ON DELETE CASCADE,
 	CONSTRAINT pk_proposta_de_correcao PRIMARY KEY (email, nro)
 	/* (RI-7) email e nro têm de figurar em correção S*/
 );
@@ -96,6 +96,6 @@ CREATE TABLE correcao (
 	nro INT NOT NULL,
 	anomalia_id INT NOT NULL,
 	FOREIGN KEY (email, nro) REFERENCES proposta_de_correcao(email, nro) ON DELETE CASCADE,
-	FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id),
+	FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id) ON DELETE CASCADE,
 	CONSTRAINT pk_correcao PRIMARY KEY (email, nro, anomalia_id)
 );
