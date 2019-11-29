@@ -31,34 +31,32 @@ CREATE TABLE anomalia (
 	zona VARCHAR(255) NOT NULL,
 	imagem VARCHAR(255) NOT NULL,
 	lingua VARCHAR(255) NOT NULL,
-	ts TIMESTAMP NOT NULL,
+	ts TIMESTAMP NOT NULL DEFAULT NOW(),
 	descricao VARCHAR(255) NOT NULL,
 	tem_anomalia_redacao BOOLEAN NOT NULL
 );
 
-CREATE TABLE anomalia_traducao ( /* Não sei ao certo como aplicar aqui as restrições */
+CREATE TABLE anomalia_traducao ( 
 	id INT NOT NULL PRIMARY KEY,
 	zona2 VARCHAR(255) NOT NULL,
 	lingua2 VARCHAR(255) NOT NULL,
 	FOREIGN KEY (id) REFERENCES anomalia(id) ON DELETE CASCADE
 );
 
-CREATE TABLE duplicado ( /* Novamente, não sei bem aplicar as restrições */
-	item1 INT NOT NULL REFERENCES item(id) ON DELETE CASCADE,
-	item2 INT NOT NULL REFERENCES item(id) ON DELETE CASCADE,
+CREATE TABLE duplicado (
+	item1 INT NOT NULL,
+	item2 INT NOT NULL,
+	FOREIGN KEY (item1) REFERENCES item(id) ON DELETE CASCADE,
+	FOREIGN KEY (item2) REFERENCES item(id) ON DELETE CASCADE,
 	CONSTRAINT pk_duplicado PRIMARY KEY (item1, item2),
 	CHECK (item1 < item2)
 );
 
-CREATE TABLE utilizador ( /* Same as above */
+CREATE TABLE utilizador ( 
 	email VARCHAR(255) NOT NULL PRIMARY KEY,
 	password VARCHAR(255) NOT NULL
 );
 
-
-
-
-/* DINIS */
 
 CREATE TABLE utilizador_qualificado (
 	email VARCHAR(255) NOT NULL PRIMARY KEY,
@@ -95,7 +93,7 @@ CREATE TABLE correcao (
 	email VARCHAR(255) NOT NULL,
 	nro INT NOT NULL,
 	anomalia_id INT NOT NULL,
-	FOREIGN KEY (email, nro) REFERENCES proposta_de_correcao(email, nro) ON DELETE CASCADE,
+	FOREIGN KEY (nro, email) REFERENCES proposta_de_correcao(nro, email) ON DELETE CASCADE,
 	FOREIGN KEY (anomalia_id) REFERENCES incidencia(anomalia_id) ON DELETE CASCADE,
 	CONSTRAINT pk_correcao PRIMARY KEY (email, nro, anomalia_id)
 );

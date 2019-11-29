@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = $correcao->save();
             }
 
-            $anomalias = array_diff(array_map('intval', $anomalias), $proposta->correcoes())
+            $anomalias = array_diff(array_map('intval', $anomalias), $proposta->correcoes());
 
             $correcao = new Correcao($email, $proposta->nro, intval($anomalia));
 
