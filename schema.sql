@@ -14,7 +14,7 @@ CREATE TABLE local_publico (
 	latitude DECIMAL (9, 6) NOT NULL,
 	longitude DECIMAL(9, 6) NOT NULL,
 	nome VARCHAR(255) NOT NULL,
-	constraint pk_local_publico PRIMARY KEY (latitude, longitude)
+	CONSTRAINT pk_local_publico PRIMARY KEY (latitude, longitude)
 );
 
 CREATE TABLE item (

@@ -88,7 +88,7 @@ $anomalias = Anomalia::findAllBetween($latitudes, $longitudes, $months);
                     <td><?= $anomalia->descricao ?></td>
                     <td><i class="fa fa-<?= $anomalia->tem_anomalia_redacao ? 'check' : 'times'?>"></i></td>
                     <td>
-                        <a class="btn btn-sm btn-danger" href="delete.php?id=<?= $anomalia->id ?>"><i class="fa fa-trash"></i></a>
+                        <a class="btn btn-sm btn-danger" href="../anomalias/delete.php?id=<?= $anomalia->id ?>"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

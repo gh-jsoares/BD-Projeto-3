@@ -5,7 +5,7 @@ function getFields($object) {
 }
 
 function getAsset($asset) {
-    return '/'.basename(__DIR__)."/assets/$asset";
+    return "/assets/$asset";
 }
 
 function validateInput($input) {
@@ -15,6 +15,6 @@ function validateInput($input) {
 function flashMessageAndRedirect($message, $type, $redirect = './') {
     $_SESSION['message-content'] = $message;
     $_SESSION['message-type'] = $type;
-    header('Location: '.'/'.basename(__DIR__).'/pages/'.basename(getcwd()).'/'.$redirect);
+    header('Location: /pages/'.basename(getcwd()).'/'.$redirect);
     die();
 }
