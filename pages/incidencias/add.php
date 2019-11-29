@@ -13,13 +13,15 @@ $anomalia_id = isset($_POST['anomalia_id']) ? validateInput($_POST['anomalia_id'
 $item_id = isset($_POST['item_id']) ? validateInput($_POST['item_id']) : NULL;
 $email = isset($_POST['email']) ? validateInput($_POST['email']) : NULL;
 
-if($anomalia_id && $item_id && $email) {
-    $incidencia = new Incidencia($anomalia_id, $item_id, $email);
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($anomalia_id && $item_id && $email) {
+        $incidencia = new Incidencia($anomalia_id, $item_id, $email);
 
-    $error = $incidencia->save();
+        $error = $incidencia->save();
 
-    if(!$error)
-        flashMessageAndRedirect('Incidência adicionada com sucesso.', 'success');
+        if(!$error)
+            flashMessageAndRedirect('Incidência adicionada com sucesso.', 'success');
+    }
 }
 ?>
 

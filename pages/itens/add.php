@@ -14,13 +14,15 @@ $localizacao = isset($_POST['localizacao']) ? validateInput($_POST['localizacao'
 $latitude = isset($_POST['latitude']) ? validateInput($_POST['latitude']) : NULL;
 $longitude = isset($_POST['longitude']) ? validateInput($_POST['longitude']) : NULL;
 
-if($descricao && $localizacao && $latitude && $longitude) {
-    $item = new Item($descricao, $localizacao, $latitude, $longitude);
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($descricao && $localizacao && $latitude && $longitude) {
+        $item = new Item($descricao, $localizacao, $latitude, $longitude);
 
-    $error = $item->save();
+        $error = $item->save();
 
-    if(!$error)
-        flashMessageAndRedirect('Item adicionado com sucesso.', 'success');
+        if(!$error)
+            flashMessageAndRedirect('Item adicionado com sucesso.', 'success');
+    }
 }
 ?>
 

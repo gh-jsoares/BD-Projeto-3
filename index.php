@@ -14,6 +14,8 @@ include 'includes/header.php';
     <li><a href="pages/incidencias">Ver incidências</a></li>
     <li><a href="pages/duplicados">Ver duplicados</a></li>
     <li><a href="pages/correcoes">Ver correções</a></li>
+
+    <li><a href="pages/procuras">Procurar</a></li>
 </ul>
 
 <?php include 'includes/footer.php'; ?>

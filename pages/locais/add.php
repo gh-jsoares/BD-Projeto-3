@@ -12,14 +12,15 @@ include __DIR__.'/../../includes/header.php';
 $latitude = isset($_POST['latitude']) ? validateInput($_POST['latitude']) : NULL;
 $longitude = isset($_POST['longitude']) ? validateInput($_POST['longitude']) : NULL;
 $nome = isset($_POST['nome']) ? validateInput($_POST['nome']) : NULL;
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($latitude && $longitude && $nome) {
+        $local = new LocalPublico($nome, $latitude, $longitude);
 
-if($latitude && $longitude && $nome) {
-    $local = new LocalPublico($nome, $latitude, $longitude);
+        $error = $local->save();
 
-    $error = $local->save();
-
-    if(!$error)
-        flashMessageAndRedirect('Local público adicionado com sucesso.', 'success');
+        if(!$error)
+            flashMessageAndRedirect('Local público adicionado com sucesso.', 'success');
+    }
 }
 ?>
 

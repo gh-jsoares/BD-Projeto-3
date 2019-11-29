@@ -12,13 +12,15 @@ include __DIR__.'/../../includes/header.php';
 $item1 = isset($_POST['item1']) ? validateInput($_POST['item1']) : NULL;
 $item2 = isset($_POST['item2']) ? validateInput($_POST['item2']) : NULL;
 
-if($item1 && $item2) {
-    $duplicado = new Duplicado($item1, $item2);
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($item1 && $item2) {
+        $duplicado = new Duplicado($item1, $item2);
 
-    $error = $duplicado->save();
+        $error = $duplicado->save();
 
-    if(!$error)
-        flashMessageAndRedirect('Duplicado adicionado com sucesso.', 'success');
+        if(!$error)
+            flashMessageAndRedirect('Duplicado adicionado com sucesso.', 'success');
+    }
 }
 ?>
 

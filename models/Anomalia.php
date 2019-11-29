@@ -20,6 +20,21 @@ class Anomalia extends Model
         return new self($r->zona, $r->imagem, $r->lingua, $r->ts, $r->descricao, $r->tem_anomalia_redacao, $r->id, true);
     }
 
+    public static function findAllBetween($latitudes, $longitudes, $months = NULL) {
+        global $db;
+
+        rsort($latitudes);
+        rsort($longitudes);
+        $values = array_merge($latitudes, $longitudes);
+
+        $sql = 'WITH TMP AS (SELECT * FROM item JOIN incidencia	ON item.id = incidencia.item_id	WHERE latitude <= ? AND latitude >= ? AND longitude <= ? AND longitude >= ?) SELECT anomalia.* FROM TMP JOIN anomalia ON anomalia.id = anomalia_id';
+
+        if($months)
+            $sql .= " WHERE ts > NOW() - INTERVAL '$months months'";
+
+        return array_map('self::instance', $db->query($sql, $values));
+    }
+
     public function __construct($zona, $imagem, $lingua, $ts, $descricao, $tem_anomalia_redacao, $id = NULL, $in_db = false) {
         $this->id = $id;
         $this->zona = $zona;

@@ -54,6 +54,12 @@ class Database
             return $this->connection->lastInsertId();
     }
 
+    public function query($sql, $values) {
+        $query = $this->connection->prepare($sql);
+        $query->execute($values);
+        return $query->fetchAll();
+    }
+
     public function update($table, $fields, $keys) {
         $fieldnames = implode(',', array_map(function ($a) { return "$a = ?"; }, array_keys($fields)));
         $keynames = implode(' AND ', array_map(function ($a) { return "$a = ?"; }, array_keys($keys)));

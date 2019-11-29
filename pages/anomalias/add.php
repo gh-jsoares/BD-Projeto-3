@@ -12,17 +12,19 @@ include __DIR__.'/../../includes/header.php';
 $zona = isset($_POST['zona']) ? validateInput($_POST['zona']) : NULL;
 $imagem = isset($_POST['imagem']) ? validateInput($_POST['imagem']) : NULL;
 $lingua = isset($_POST['lingua']) ? validateInput($_POST['lingua']) : NULL;
-$timestamp = isset($_POST['timestamp']) ? validateInput($_POST['timestamp']) : NULL;
+$timestamp = isset($_POST['timestamp']) ? validateInput($_POST['timestamp']) : (new DateTime('now', new DateTimeZone('Europe/Lisbon')))->format('Y-m-d\Th:i');
 $descricao = isset($_POST['descricao']) ? validateInput($_POST['descricao']) : NULL;
 $tem_redacao = isset($_POST['tem_redacao']) ? 1 : 0;
 
-if($zona && $imagem && $lingua && $timestamp && $descricao) {
-    $anomalia = new Anomalia($zona, $imagem, $lingua, $timestamp, $descricao, $tem_redacao);
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($zona && $imagem && $lingua && $timestamp && $descricao) {
+        $anomalia = new Anomalia($zona, $imagem, $lingua, $timestamp, $descricao, $tem_redacao);
 
-    $error = $anomalia->save();
+        $error = $anomalia->save();
 
-    if(!$error)
-        flashMessageAndRedirect('Anomalia adicionada com sucesso.', 'success');
+        if(!$error)
+            flashMessageAndRedirect('Anomalia adicionada com sucesso.', 'success');
+    }
 }
 ?>
 
