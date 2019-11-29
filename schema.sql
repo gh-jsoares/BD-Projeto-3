@@ -86,7 +86,7 @@ CREATE TABLE proposta_de_correcao (
 	nro SERIAL,
 	data_hora TIMESTAMP NOT NULL DEFAULT NOW(),
 	texto TEXT,
-	FOREIGN KEY (email) REFERENCES utilizador(email),
+	FOREIGN KEY (email) REFERENCES utilizador_qualificado(email),
 	CONSTRAINT pk_proposta_de_correcao PRIMARY KEY (email, nro)
 	/* (RI-7) email e nro têm de figurar em correção S*/
 );

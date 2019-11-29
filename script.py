@@ -10,7 +10,7 @@ imagens = ['aIMG', 'bIMG', 'cIMG', 'dIMG', 'eIMG', 'fIMG', 'gIMG', 'hIMG', 'iIMG
 
 linguas = ['aLNG', 'bLNG', 'cLNG', 'dLNG', 'eLNG', 'fLNG', 'gLNG', 'hLNG', 'iLNG', 'jLNG', 'kLNG', 'lLNG', 'mLNG', 'nLNG', 'oLNG', 'pLNG', 'qLNG', 'rLNG', 'sLNG', 'tLNG']
 
-ts = ['2019-11-20 08:00:32', '2019-11-20 08:30:56', '2019-11-21 11:45:27', '2019-11-21 15:31:12', '2019-11-22 02:46:00', '2019-11-22 23:03:15', '2019-11-23 05:39:19', '2019-11-23 22:30:00', '2019-11-24 12:28:56', '2019-11-24 16:33:22', '2019-11-25 10:03:29', '2019-11-25 10:59:46', '2019-11-26 19:15:59', '2019-11-26 20:01:51', '2019-11-27 00:45:00', '2019-11-27 06:10:21', '2019-11-28 13:37:00', '2019-11-28 23:59:10', '2019-11-29 04:20:00', '2019-11-29 07:07:07']
+ts = ['2019-01-20 08:00:32', '2019-01-20 08:30:56', '2019-02-21 11:45:27', '2019-02-21 15:31:12', '2019-03-22 02:46:00', '2019-03-22 23:03:15', '2019-11-23 05:39:19', '2019-11-23 22:30:00', '2019-11-24 12:28:56', '2019-11-24 16:33:22', '2019-11-25 10:03:29', '2019-11-25 10:59:46', '2019-11-26 19:15:59', '2019-11-26 20:01:51', '2019-11-27 00:45:00', '2019-11-27 06:10:21', '2019-11-28 13:37:00', '2019-11-28 23:59:10', '2019-11-29 04:20:00', '2019-11-29 07:07:07']
 
 tem_anomalia_redacao = ['true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']
 
@@ -43,15 +43,10 @@ f.write('\n')
 
 i = 0
 j = 3
-while i < 20:
-    if i != 19:
-        f.write('INSERT INTO anomalia_traducao VALUES (' + str(i + 1) + ', \'(' + str(i) + ', ' + str(i + 1) + ', ' + str(i) + ', ' + str(i + 1) + ')\', \'' + linguas[i + 1] + '\');\n')
-    else:
-        f.write('INSERT INTO anomalia_traducao VALUES (' + str(i + 1) + ', \'(' + str(i) + ', ' + str(i + 1) + ', ' + str(i) + ', ' + str(i + 1) + ')\', \'' + linguas[0] + '\');\n')
+while i < 10:
+    f.write('INSERT INTO anomalia_traducao VALUES (' + str(i + 1) + ', \'(' + str(i) + ', ' + str(i + 1) + ', ' + str(i) + ', ' + str(i + 1) + ')\', \'' + linguas[i + 1] + '\');\n')
     i += 1
     j += 3
-    if i == 19:
-        j = 0
 f.write('\n')
 
 i = 1
@@ -86,14 +81,19 @@ f.write('\n')
 
 i = 0
 while i < 10:
-    f.write('INSERT INTO proposta_de_correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', DEFAULT, \'' + ts[i + 10] + '\', \'' + correcoes[i] + '\');\n')
+    f.write('INSERT INTO proposta_de_correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 1) + ', \'' + ts[i + 10] + '\', \'' + correcoes[i] + '\');\n')
     i += 1
 f.write('\n')
 
 i = 0
 while i < 10:
-    f.write('INSERT INTO correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 1) + ', ' + str(i * 2 + 2) + ');\n')
+    f.write('INSERT INTO correcao VALUES (\'' + nomes[i] + '@gmail.com' + '\', ' + str(i + 1) + ', ' + str(i + 2) + ');\n')
     i += 1
 f.write('\n')
+
+
+f.write('INSERT INTO incidencia VALUES (1, 1, \'Nikole@gmail.com\');\n')
+f.write('INSERT INTO incidencia VALUES (3, 21, \'Rusty@gmail.com\');\n')
+f.write('INSERT INTO local_publico VALUES (\'39.336775\', \'-8.936379\', \'Rio Maior\');\n')
 
 f.close()
