@@ -11,43 +11,44 @@ const PAGE_BACK = '../locais';
 include __DIR__.'/../../includes/header.php';
 
 $email = isset($_POST['email']) ? validateInput($_POST['email']) : NULL;
-$anomalias = isset($_POST['anomalias']) ? validateInput($_POST['anomalias']) : [];
+$anomalias = isset($_POST['anomalias']) ? array_map('validateInput', $_POST['anomalias']) : [];
 $data_hora = isset($_POST['data_hora']) ? validateInput($_POST['data_hora']) : (new DateTime('now', new DateTimeZone('Europe/Lisbon')))->format('Y-m-d\Th:i');
 $texto = isset($_POST['texto']) ? validateInput($_POST['texto']) : NULL;
 
-if($email && $anomalias && $data_hora && $texto) {
-    $db->beginTransaction();
-    try {
-        $proposta = new PropostaDeCorrecao($email, $data_hora, $texto);
-        $proposta->save();
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($email && $anomalias && $data_hora && $texto) {
+        $db->beginTransaction();
+        try {
+            $proposta = new PropostaDeCorrecao($email, $data_hora, $texto);
+            $error = $proposta->save();
 
-        foreach ($anomalias as $anomalia) {
-            $correcao = new Correcao($email, $proposta->nro, $anomalia);
-            $correcao->save();
+            foreach ($anomalias as $anomalia) {
+                $correcao = new Correcao($email, $proposta->nro, intval($anomalia));
+                $error = $correcao->save();
+            }
+
+            $db->commitTransaction();
+        } catch(PDOException $e) {
+            $db->rollbackTransaction();
         }
-
-        $db->commitTransaction();
-    } catch(PDOException $e) {
-        $db->rollbackTransaction();
+        
+        if(!$error)
+            flashMessageAndRedirect('Proposta de Correção adicionada com sucesso.', 'success');
+    } else {
+        $error = 'Required fields missing';
     }
-    
-
-    $error = $proposta->save();
-
-    if(!$error)
-        flashMessageAndRedirect('Proposta de Correção adicionada com sucesso.', 'success');
 }
 ?>
 
 <form method="POST">
     <div class="form-group">
         <label for="emailInput">Email</label>
-        <input value="<?= $email?>" type="email" class="form-control" id="emailInput">
+        <input name="email" value="<?= $email?>" type="email" class="form-control" id="emailInput">
     </div>
 
-    <select class="form-group custom-select" multiple size="3">
+    <select name="anomalias[]" class="form-group custom-select" multiple size="3">
         <?php foreach (Incidencia::all() as $incidencia): ?>
-            <option <?= in_array($incidencia->anomalia_id, $anomalias) ? 'selected' : '' ?>><?= $incidencia->anomalia_id ?></option>
+            <option value="<?= $incidencia->anomalia_id ?>" <?= in_array($incidencia->anomalia_id, $anomalias) ? 'selected' : '' ?>><?= $incidencia->anomalia_id ?></option>
         <?php endforeach; ?>
     </select>
 
@@ -58,7 +59,7 @@ if($email && $anomalias && $data_hora && $texto) {
 
     <div class="form-group">
         <label for="textoInput">Texto</label>
-        <input value="<?= $texto ?>" type="text" class="form-control" id="textoInput">
+        <input name="texto" value="<?= $texto ?>" type="text" class="form-control" id="textoInput">
     </div>
 
     <?php if(isset($error)): ?>

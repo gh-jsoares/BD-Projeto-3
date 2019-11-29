@@ -8,8 +8,8 @@ require_once __DIR__.'/Correcao.php';
 
 class PropostaDeCorrecao extends Model
 {
-    public $email;
     public $nro;
+    public $email;
     public $data_hora;
     public $texto;
 
@@ -28,8 +28,8 @@ class PropostaDeCorrecao extends Model
     }
 
     public function __construct($email, $data_hora, $texto, $nro = NULL, $in_db = false) {
-        $this->email = $email;
         $this->nro = $nro;
+        $this->email = $email;
         $this->data_hora = $data_hora;
         $this->texto = $texto;
         
@@ -53,6 +53,7 @@ class PropostaDeCorrecao extends Model
         global $db;
 
         $fields = getFields($this);
+        array_shift($fields); // remove nro
 
         try {
             if(!$this->in_db)
