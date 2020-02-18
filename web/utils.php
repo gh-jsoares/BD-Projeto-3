@@ -1,11 +1,17 @@
 <?php
 
+include_once 'env.php';
+
+function getURLRoot() {
+    return URL_ROOT;
+}
+
 function getFields($object) {
     return get_object_vars($object);
 }
 
 function getAsset($asset) {
-    return "/assets/$asset";
+    return getURLRoot()."/assets/$asset";
 }
 
 function validateInput($input) {
@@ -15,6 +21,6 @@ function validateInput($input) {
 function flashMessageAndRedirect($message, $type, $redirect = './') {
     $_SESSION['message-content'] = $message;
     $_SESSION['message-type'] = $type;
-    header('Location: /pages/'.basename(getcwd()).'/'.$redirect);
+    header('Location: '.getURLRoot().'/pages/'.basename(getcwd()).'/'.$redirect);
     die();
 }
