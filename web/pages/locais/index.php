@@ -1,5 +1,4 @@
 <?php
-include_once  __DIR__.'/../../utils.php';
 require_once __DIR__.'/../../database.php';
 require_once __DIR__.'/../../models/LocalPublico.php';
 
@@ -37,6 +36,6 @@ $locais = LocalPublico::all();
     </table>
 </div>
 
-<a href="<?= getURLRoot() ?>/pages/<?= basename(__DIR__) ?>/add.php" class="btn btn-primary">Adicionar Local Público</a>
+<a href="add.php" class="btn btn-primary">Adicionar Local Público</a>
 
 <?php include __DIR__.'/../../includes/footer.php'; ?>
