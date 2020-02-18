@@ -37,6 +37,6 @@ $locais = LocalPublico::all();
     </table>
 </div>
 
-<a href="pages/<?= dirname(__DIR__) ?>/add.php" class="btn btn-primary">Adicionar Local Público</a>
+<a href="pages/<?= basename(__DIR__) ?>/add.php" class="btn btn-primary">Adicionar Local Público</a>
 
 <?php include __DIR__.'/../../includes/footer.php'; ?>
