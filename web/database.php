@@ -26,19 +26,19 @@ class Database
     }
 
     public function all($table) {
-        $query = $this->connection->query("SELECT * FROM $table");
+        $query = $this->connection->query("SELECT * FROM public.$table");
         return $query->fetchAll();
     }
 
     public function findAllByField($table, $field, $value) {
-        $query = $this->connection->prepare("SELECT * FROM $table WHERE $field = ?");
+        $query = $this->connection->prepare("SELECT * FROM public.$table WHERE $field = ?");
         $query->execute([$value]);
         return $query->fetchAll();
     }
 
     public function findAllByFields($table, $fields) {
         $fieldnames = implode(' AND ', array_map(function ($a) { return "$a = ?"; }, array_keys($fields)));
-        $sql = "SELECT * FROM $table WHERE $fieldnames";
+        $sql = "SELECT * FROM public.$table WHERE $fieldnames";
         $query = $this->connection->prepare($sql);
         $query->execute(array_values($fields));
         return $query->fetchAll();
@@ -70,7 +70,7 @@ class Database
 
     public function delete($table, $fields) {
         $fieldnames = implode(' AND ', array_map(function ($a) { return "$a = ?"; }, array_keys($fields)));
-        $sql = "DELETE FROM $table WHERE $fieldnames";
+        $sql = "DELETE FROM public.$table WHERE $fieldnames";
         $query = $this->connection->prepare($sql);
         $query->execute(array_values($fields));
     }
